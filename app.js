@@ -16,12 +16,16 @@ var connection = mysql.createConnection({
 connection.connect();
 
 app.get('/hw7', (req, res, next) => {
-	res.send('Hi! Nice to meet you!');
-});
+	var club = req.query.club;
+	var pos = req.query.pos;
 
-connection.query('SELECT * FROM assists', function(error, results, fields) {
-	if (error) throw error;
-	console.log('The solution is: ', results);
+	console.log('Club: ', club, 'Pos: ', pos);
+
+	var query = 'SELECT * FROM assists WHERE Club = ' + club;
+	connection.query(query, function(error, results, fields) {
+		if (error) throw error;
+		console.log('The solution is: ', results);
+	});
 });
 
 app.listen(3000, (req, res, next) => {
