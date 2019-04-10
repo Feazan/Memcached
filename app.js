@@ -10,15 +10,15 @@ app.get('/', (req, res, next) => {
 	res.render('home');
 });
 
-// var connection = mysql.createConnection({
-// 	host: 'localhost',
-// 	user: 'root',
-// 	password: 'root',
-// 	database: 'hw7'
-// });
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'root',
+	database: 'hw7'
+});
 
-// connection.connect();
-// var memcached = new Memcached('localhost:11211');
+connection.connect();
+var memcached = new Memcached('localhost:11211');
 
 app.get('/hw7', (req, res, next) => {
 	var club = req.query.club;
