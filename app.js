@@ -15,6 +15,10 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+app.get('/hw7', (req, res, next) => {
+	res.send('Hi! Nice to meet you!');
+});
+
 connection.query('SELECT * FROM assists', function(error, results, fields) {
 	if (error) throw error;
 	console.log('The solution is: ', results);
