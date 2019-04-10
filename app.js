@@ -21,7 +21,7 @@ app.get('/hw7', (req, res, next) => {
 
 	console.log('Club: ', club, 'Pos: ', pos);
 
-	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "'";
+	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos + "'";
 	console.log('Built Query: ', query);
 	connection.query(query, function(error, results, fields) {
 		if (error) throw error;
