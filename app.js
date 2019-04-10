@@ -26,11 +26,14 @@ app.get('/hw7', (req, res, next) => {
 	connection.query(query, function(err, results) {
 		if (err) throw error;
 
+		// Compute average assists
 		var avg = 0;
 		for (var i = 0; i < results.length; i++) {
 			avg += results[i].A;
 		}
 		avg /= results.length;
+
+		// If tie in max assists
 		var response = { club: club, pos: pos, max_assists: results[0].A, player: results[0].Player, avg_assists: avg };
 
 		res.send(response);
