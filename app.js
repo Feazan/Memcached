@@ -26,6 +26,7 @@ app.get('/hw7', (req, res, next) => {
 	connection.query(query, function(error, results, fields) {
 		if (error) throw error;
 		console.log('The solution is: ', results);
+		console.log('Length is: ', results.length);
 	});
 });
 
