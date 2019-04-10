@@ -69,10 +69,10 @@ app.get('/hw7', (req, res, next) => {
 				}
 
 				var response = {
-					club: club,
-					pos: pos,
+					club: results[tie].Club,
+					pos: results[tie].Pos,
 					max_assists: results[tie].A,
-					player: results[0].Player,
+					player: results[tie].Player,
 					avg_assists: avg
 				};
 
