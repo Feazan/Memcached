@@ -18,6 +18,7 @@ connection.connect();
 app.get('/hw7', (req, res, next) => {
 	var club = req.query.club;
 	var pos = req.query.pos;
+	if (!club || !pos) res.return({ status: 'error', error: 'No query specified' });
 
 	console.log('Club: ', club, 'Pos: ', pos);
 
@@ -33,8 +34,22 @@ app.get('/hw7', (req, res, next) => {
 		}
 		avg /= results.length;
 
-		// If tie in max assists
-		var response = { club: club, pos: pos, max_assists: results[0].A, player: results[0].Player, avg_assists: avg };
+		var tie = 0;
+		if (results[0].A === results[1].A) {
+			if (results[0].GS > results[1].GS) {
+				tie = 0;
+			} else {
+				tie = 1;
+			}
+		}
+
+		var response = {
+			club: club,
+			pos: pos,
+			max_assists: results[tie].A,
+			player: results[0].Player,
+			avg_assists: avg
+		};
 
 		res.send(response);
 	});
