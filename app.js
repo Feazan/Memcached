@@ -1,8 +1,9 @@
 var express = require('express');
 var mysql = require('mysql');
+var Memcached = require('memcached');
+
 var app = express();
 app.use(express.static('public'));
-
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res, next) => {
@@ -17,6 +18,7 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
+var memcached = new Memcached('localhost:11211');
 
 app.get('/hw7', (req, res, next) => {
 	var club = req.query.club;
@@ -27,6 +29,9 @@ app.get('/hw7', (req, res, next) => {
 
 	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos + "' ORDER BY A DESC";
 	console.log('Built Query: ', query);
+	memcached.get(query, function(err, data) {
+		console.log('TESTSETSTTE: ', data);
+	});
 	connection.query(query, function(err, results) {
 		if (err) throw error;
 
