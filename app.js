@@ -70,7 +70,7 @@ app.get('/hw7', (req, res, next) => {
 
 				var response = {
 					club: results[tie].Club,
-					pos: results[tie].Pos,
+					pos: results[tie].POS,
 					max_assists: results[tie].A,
 					player: results[tie].Player,
 					avg_assists: avg
