@@ -25,9 +25,13 @@ app.get('/hw7', (req, res, next) => {
 	console.log('Built Query: ', query);
 	connection.query(query, function(err, results) {
 		if (err) throw error;
-		console.log('The solution is: ', results[0]);
-		console.log('Length is: ', results.length);
-		var response = { club: club, pos: pos, max_assists: results[0].A, player: results[0].Player };
+
+		var avg = 0;
+		for (var i = 0; i < results.length; i++) {
+			avg += results[i].A;
+		}
+		avg /= results.length;
+		var response = { club: club, pos: pos, max_assists: results[0].A, player: results[0].Player, avg_assists: avg };
 
 		res.send(response);
 	});
