@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var app = express();
 
 app.get('/', (req, res, next) => {
-	res.send('Hello!');
+	res.send('<img src = "oversoul.jpg">');
 });
 
 var connection = mysql.createConnection({
