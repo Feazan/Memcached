@@ -34,24 +34,24 @@ app.get('/hw7', (req, res, next) => {
 		if (!data) {
 			connection.query(query, function(err, results) {
 				if (err) throw error;
-				console.log('here');
 				// Compute average assists
 				var avg = 0;
 				for (var i = 0; i < results.length; i++) {
 					avg += results[i].A;
 				}
-				console.log('here');
 				avg /= results.length;
 
 				var tie = 0;
-				if (results[0].A === results[1].A) {
-					if (results[0].GS > results[1].GS) {
-						tie = 0;
-					} else {
-						tie = 1;
+				if (results.length > 1) {
+					if (results[0].A === results[1].A) {
+						if (results[0].GS > results[1].GS) {
+							tie = 0;
+						} else {
+							tie = 1;
+						}
 					}
 				}
-				console.log('here');
+
 				var response = {
 					club: results[tie].Club,
 					pos: results[tie].POS,
@@ -60,7 +60,6 @@ app.get('/hw7', (req, res, next) => {
 					avg_assists: avg
 				};
 
-				console.log('here');
 				// cache the results
 				memcached.set(key, response, 10, function(err) {
 					if (err) console.log(err);
