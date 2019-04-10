@@ -29,14 +29,14 @@ app.get('/hw7', (req, res, next) => {
 
 	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos + "' ORDER BY A DESC";
 	console.log('Built Query: ', query);
-	memcached.get(query, function(err, data) {
+	memcached.get('foo', function(err, data) {
 		console.log('TESTSTSETSET: ', data);
 	});
 
 	connection.query(query, function(err, results) {
 		if (err) throw error;
 		// cache the results
-		memcached.set(query, results, 10, function(err) {
+		memcached.set('foo', results, 10, function(err) {
 			if (err) console.log(err);
 		});
 
