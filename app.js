@@ -22,27 +22,10 @@ var memcached = new Memcached('localhost:11211');
 
 app.get('/hw7', (req, res, next) => {
 	var club = req.query.club;
-	var pos = req.query.pos.split('-');
+	var pos = req.query.pos;
 	if (!club || !pos) res.return({ status: 'error', error: 'No query specified' });
+	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos + "' ORDER BY A DESC";
 
-	var query = '';
-	// If plays multiple positions break into both positions and store them
-	if (pos.length > 1) {
-		query =
-			'SELECT * FROM assists WHERE Club = ' +
-			"'" +
-			club +
-			"' AND Pos = " +
-			"'" +
-			pos[0] +
-			"' OR Pos = " +
-			"'" +
-			pos[1] +
-			"' ORDER BY A DESC";
-	} else {
-		var query =
-			'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos[0] + "' ORDER BY A DESC";
-	}
 	var key = club + pos;
 	console.log('Club: ', club, 'Pos: ', pos);
 	console.log('Built Query: ', query);
