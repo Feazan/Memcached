@@ -23,10 +23,13 @@ app.get('/hw7', (req, res, next) => {
 
 	var query = 'SELECT * FROM assists WHERE Club = ' + "'" + club + "' AND Pos = " + "'" + pos + "' ORDER BY A DESC";
 	console.log('Built Query: ', query);
-	connection.query(query, function(error, results, fields) {
-		if (error) throw error;
-		console.log('The solution is: ', results);
+	connection.query(query, function(err, results) {
+		if (err) throw error;
+		console.log('The solution is: ', results[0]);
 		console.log('Length is: ', results.length);
+		var response = { club: club, pos: pos, max_assists: results[0].A, player: results[0].Player };
+
+		res.send(response);
 	});
 });
 
